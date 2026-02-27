@@ -14,6 +14,8 @@ import { AuthModule } from './auth/auth.module';
 import { EmailVerificationCode } from './auth/entities/email-verification-code.entity';
 import { MailModule } from './mail/mail.module';
 import { PasswordResetCode } from './auth/entities/password-reset-code.entity';
+import { MastersModule } from './masters/masters.module';
+import { Master } from './masters/entities/master.entity';
 
 @Module({
   imports: [
@@ -33,6 +35,7 @@ import { PasswordResetCode } from './auth/entities/password-reset-code.entity';
           entities: [
             User,
             Company,
+            Master,
             Service,
             RefreshToken,
             EmailVerificationCode,
@@ -52,6 +55,7 @@ import { PasswordResetCode } from './auth/entities/password-reset-code.entity';
     ]),
     UsersModule,
     CompaniesModule,
+    MastersModule,
     ServicesModule,
     AuthModule,
     MailModule,

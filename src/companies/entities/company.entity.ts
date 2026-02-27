@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Service } from 'src/services/entities/service.entity';
 import { User } from 'src/users/entities/user.entity';
+import { Master } from 'src/masters/entities/master.entity';
 
 @Entity('companies')
 export class Company {
@@ -27,6 +28,9 @@ export class Company {
 
   @RelationId((company: Company) => company.user)
   userId: number;
+
+  @OneToMany(() => Master, (master) => master.company)
+  masters?: Master[];
 
   @OneToMany(() => Service, (service) => service.company)
   services?: Service[];
