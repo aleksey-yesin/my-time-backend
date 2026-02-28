@@ -2,11 +2,14 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
 import { Company } from 'src/companies/entities/company.entity';
+import { Service } from 'src/services/entities/service.entity';
 
 @Entity('masters')
 export class Master {
@@ -25,4 +28,20 @@ export class Master {
 
   @RelationId((master: Master) => master.company)
   companyId: number;
+
+  @ManyToMany(() => Service, (service) => service.masters)
+  @JoinTable({
+    name: 'masters_services',
+    joinColumn: {
+      name: 'master_id',
+      referencedColumnName: 'id',
+      foreignKeyConstraintName: 'masters_services_master_id_fkey',
+    },
+    inverseJoinColumn: {
+      name: 'service_id',
+      referencedColumnName: 'id',
+      foreignKeyConstraintName: 'masters_services_service_id_fkey',
+    },
+  })
+  services?: Service[];
 }

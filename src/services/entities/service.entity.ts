@@ -2,11 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
 import { Company } from 'src/companies/entities/company.entity';
+import { Master } from 'src/masters/entities/master.entity';
 
 @Entity('services')
 export class Service {
@@ -28,4 +30,9 @@ export class Service {
 
   @RelationId((service: Service) => service.company)
   companyId: number;
+
+  @ManyToMany(() => Master, (master) => master.services, {
+    onDelete: 'CASCADE',
+  })
+  masters?: Master[];
 }
